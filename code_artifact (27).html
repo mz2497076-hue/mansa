@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة زيدان وحربي - كلية التربية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+
+    <!-- Header & Navigation Bar -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-lg">
+                    🎓
+                </div>
+                <div>
+                    <h1 class="font-black text-white text-sm sm:text-base">منصة زيدان وحربي للملخصات</h1>
+                    <p class="text-[11px] text-slate-400">كلية التربية - المستوى الأول</p>
+                </div>
+            </div>
+
+            <!-- Admin Authentication & Share Buttons -->
+            <div class="flex items-center gap-2">
+                <button onclick="shareAppUrl()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-share-nodes text-amber-400"></i> مشاركة المنصة
+                </button>
+                <button onclick="handleAdminAuthClick()" id="adminAuthBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black px-4 py-2 rounded-xl transition shadow flex items-center gap-1.5">
+                    <i class="fa-solid fa-lock text-slate-950"></i> <span id="authBtnText">دخول المشرفين</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-6 w-full space-y-6 flex-grow">
+
+        <!-- Banner & Supervisors Info -->
+        <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="absolute -left-10 -bottom-10 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="space-y-3 text-center md:text-right z-10">
+                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full font-extrabold border border-amber-500/20">الفصل الدراسي الأول ٢٠٢٦ - ٢٠٢٧</span>
+                <h2 class="text-xl sm:text-2xl font-black text-white tracking-wide">المنصة الرسمية للملخصات الجامعية</h2>
+                <p class="text-xs sm:text-sm text-slate-400 max-w-xl">مرحباً بكم في منصتكم الخاصة بطلاب كلية التربية. هنا تجد كل الجداول الدراسية وملخصات المحاضرات لجميع الدكاترة بإشراف زيدان وحربي.</p>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+                    <div class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span>إشراف كريديت: <strong class="text-amber-400">زيدان</strong></span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-300">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                        <span>إشراف عربي: <strong class="text-indigo-400">حربي</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Photo Uploader Container -->
+            <div class="flex flex-col items-center gap-3 z-10">
+                <input type="file" id="bannerImgInput" accept="image/*" class="hidden" onchange="handleBannerImageChange(event)">
+                <div onclick="document.getElementById('bannerImgInput').click()" class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-slate-950 border-2 border-dashed border-slate-700 hover:border-amber-500/60 overflow-hidden cursor-pointer transition shadow-inner flex items-center justify-center relative group">
+                    <img id="bannerDisplayImg" src="https://placehold.co/200x200/0f172a/f59e0b?text=صورتنا+%F0%9F%93%B7" alt="صورة المنصة" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center text-[11px] font-bold text-white">
+                        <i class="fa-solid fa-camera mb-1 text-amber-400 text-base"></i> تغيير الصورة
+                    </div>
+                </div>
+                <button onclick="document.getElementById('bannerImgInput').click()" class="text-[11px] font-bold text-amber-400 hover:text-amber-300 transition">
+                    📤 رفع صورتنا الخاصة
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Tabs Switcher -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button onclick="switchTab('credit')" id="tabBtnCredit" class="p-4 rounded-2xl border transition text-right bg-slate-900 border-amber-500 shadow-md">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-black text-white text-sm">حاسب آلي كريديت (شامل الجدول الرسمي)</h4>
+                        <p class="text-[11px] text-amber-400 font-bold mt-0.5">بإشراف: زيدان</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">ز</div>
+                </div>
+            </button>
+            <button onclick="switchTab('arabic')" id="tabBtnArabic" class="p-4 rounded-2xl border transition text-right bg-slate-900/60 border-slate-800 hover:bg-slate-900">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-black text-slate-300 text-sm">حاسب آلي عربي</h4>
+                        <p class="text-[11px] text-indigo-400 font-bold mt-0.5">بإشراف: حربي</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">ح</div>
+                </div>
+            </button>
+        </div>
+
+        <!-- CREDIT SECTION CONTENT (Official Schedule & Flexible Summaries for All Doctors) -->
+        <div id="sectionCredit" class="space-y-6">
+
+            <!-- Clean & Organized Official Timetable Section with Clear Separator Cards -->
+            <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days text-amber-400"></i>
+                        <h3 class="font-black text-white text-sm sm:text-base">الجدول الدراسي الرسمي - المستوى الأول (قسم كريديت) 📅</h3>
+                    </div>
+                    <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-1 rounded font-bold">الفصل الدراسي الأول ٢٠٢٦ - ٢٠٢٧</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950 text-amber-400 border-b-2 border-amber-500/30">
+                                <th class="p-3.5 border-l border-slate-800">اليوم</th>
+                                <th class="p-3.5 border-l border-slate-800">المقرر (المادة)</th>
+                                <th class="p-3.5 border-l border-slate-800">دكتور المادة / القائم بالتدريس</th>
+                                <th class="p-3.5 border-l border-slate-800">التوقيت</th>
+                                <th class="p-3.5">المكان / القاعة</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <!-- السبت -->
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 font-black text-amber-300 border-l border-slate-800 bg-slate-950/40" rowspan="4">السبت 🗓️</td>
+                                <td class="p-3.5 border-l border-slate-800">نظم تشغيل (1)</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور محى الدين اسماعيل موسى العلامي</td>
+                                <td class="p-3.5 border-l border-slate-800">09:00 - 10:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 border-l border-slate-800">نظم تشغيل (1) (مجموعة 2)</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور محى الدين اسماعيل موسى العلامي</td>
+                                <td class="p-3.5 border-l border-slate-800">10:00 - 11:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 border-l border-slate-800">انظمة قواعد البيانات (1)</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور إيمان عبد العظيم محمد العياط</td>
+                                <td class="p-3.5 border-l border-slate-800">12:00 - 14:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40 border-b-4 border-amber-500">
+                                <td class="p-3.5 border-l border-slate-800">طرق تخطيط البرامج / نظم تشغيل</td>
+                                <td class="p-3.5 border-l border-slate-800">رانا مصطفى - الاء الحمادي</td>
+                                <td class="p-3.5 border-l border-slate-800">14:00 - 18:00</td>
+                                <td class="p-3.5">مدرج و. (1) مبنى العميد / مدرج (ب)</td>
+                            </tr>
+
+                            <!-- الأحد -->
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 font-black text-amber-300 border-l border-slate-800 bg-slate-950/40" rowspan="3">الأحد 🗓️</td>
+                                <td class="p-3.5 border-l border-slate-800">مدخل للعلوم التربوية</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور أماني السيد السيد غبور</td>
+                                <td class="p-3.5 border-l border-slate-800">08:00 - 10:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 border-l border-slate-800">طرق تخطيط البرامج</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور منى عصمت عبد الحميد عوض</td>
+                                <td class="p-3.5 border-l border-slate-800">11:00 - 13:00</td>
+                                <td class="p-3.5">٦٠٢ - مدرج (ج) - مبنى التربية الفنية</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40 border-b-4 border-amber-500">
+                                <td class="p-3.5 border-l border-slate-800">مقدمة في البرمجه / قواعد بيانات / إحصاء</td>
+                                <td class="p-3.5 border-l border-slate-800">شهد فتحي - رحمة سمير - سارة خيري</td>
+                                <td class="p-3.5 border-l border-slate-800">13:00 - 16:00</td>
+                                <td class="p-3.5">معامل الحاسب الآلي والوسائط المتعددة</td>
+                            </tr>
+
+                            <!-- الإثنين -->
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 font-black text-amber-300 border-l border-slate-800 bg-slate-950/40" rowspan="2">الإثنين 🗓️</td>
+                                <td class="p-3.5 border-l border-slate-800">مبادئ رياضيات واحصاء / قواعد بيانات</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور اسراء عباس - سمر علي - آلاء غريب</td>
+                                <td class="p-3.5 border-l border-slate-800">08:00 - 12:00</td>
+                                <td class="p-3.5">معامل الحاسب الآلي (2، 4، 5)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40 border-b-4 border-amber-500">
+                                <td class="p-3.5 border-l border-slate-800">مقدمة في البرمجه وتكنولوجيا المعلومات</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور أمانى فوزى - دكتور أحمد السيد أمين</td>
+                                <td class="p-3.5 border-l border-slate-800">12:00 - 16:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+
+                            <!-- الثلاثاء -->
+                            <tr class="hover:bg-slate-950/40 border-b-4 border-amber-500">
+                                <td class="p-3.5 font-black text-amber-300 border-l border-slate-800 bg-slate-950/40">الثلاثاء 🗓️</td>
+                                <td class="p-3.5 border-l border-slate-800">تكنولوجيا المعلومات / نظم تشغيل / برمجة</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور أحمد السيد أمين - مريم محمد - سمر عدي</td>
+                                <td class="p-3.5 border-l border-slate-800">12:00 - 16:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) ومعامل الحاسب (3، 4)</td>
+                            </tr>
+
+                            <!-- الأربعاء -->
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 font-black text-amber-300 border-l border-slate-800 bg-slate-950/40" rowspan="3">الأربعاء 🗓️</td>
+                                <td class="p-3.5 border-l border-slate-800">مقدمة في البرمجه</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور رحمه حسام صالح علي عبد الله</td>
+                                <td class="p-3.5 border-l border-slate-800">08:00 - 12:00</td>
+                                <td class="p-3.5">معمل حاسب آلي (2)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40">
+                                <td class="p-3.5 border-l border-slate-800">اللغة الانجليزية وتطبيقاتها</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور فاطمة عبده محمد عبده</td>
+                                <td class="p-3.5 border-l border-slate-800">12:00 - 14:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/40 border-b-4 border-amber-500">
+                                <td class="p-3.5 border-l border-slate-800">مبادئ التدريس / رياضيات واحصاء</td>
+                                <td class="p-3.5 border-l border-slate-800">دكتور عاصم بحيري - دكتور عطا إبراهيم إمام الألفي</td>
+                                <td class="p-3.5 border-l border-slate-800">14:00 - 17:00</td>
+                                <td class="p-3.5">٤٠٦ - مدرج (أ) - مبنى الحاسب الآلي وتكنولوجيا التعليم</td>
+                            </tr>
+
+                            <!-- الخميس -->
+                            <tr class="hover:bg-slate-950/40 border-b-4 border-amber-500">
+                                <td class="p-3.5 font-black text-amber-300 border-l border-slate-800 bg-slate-950/40">الخميس 🗓️</td>
+                                <td class="p-3.5 border-l border-slate-800">نظم تشغيل (1)</td>
+                                <td class="p-3.5 border-l border-slate-800">السيدة مريم محمد محمد لطفي السيد</td>
+                                <td class="p-3.5 border-l border-slate-800">12:00 - 14:00</td>
+                                <td class="p-3.5">٤٣٨ - معمل حاسب آلي (3)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PDF Content Viewer Section for Units & Exams (Dr. Fatma) -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h3 class="font-black text-white text-base sm:text-lg">منهج دكتور فاطمة عبده الكامل - الشرح الأصلي + الأسئلة والإجابات 📚</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">يتضمن النص الكامل للشرح من الـ PDF + التفسير بالعربي + جميع بنوك الأسئلة والإجابات بدون اختصار</p>
+                </div>
+                <div id="adminActionContainer" class="hidden">
+                    <button onclick="openAddModal()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow">
+                        <i class="fa-solid fa-plus"></i> إضافة ملخص جديد
+                    </button>
+                </div>
+            </div>
+
+            <!-- Full Unsummarized PDF Content Container with Detailed Explanation & Q&A -->
+            <div class="space-y-6 max-h-[700px] overflow-y-auto p-4 sm:p-6 bg-slate-950 border border-slate-800 rounded-xl text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
+                
+                <!-- Unit 1 Complete -->
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <h4 class="text-amber-400 font-black text-sm">UNIT ONE: English as a Global & Life Skill</h4>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 px-2.5 py-1 rounded font-bold">دكتور فاطمة عبده</span>
+                    </div>
+
+                    <!-- Complete Explanation from PDF -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <h5 class="font-bold text-amber-300 text-xs">📖 الشرح النصي الكامل للمنهاج (Original Text & Explanation):</h5>
+                        <p class="text-slate-300 text-xs italic">"English is the global language of business, film, music, and television. Learning English can provide insight into the culture and society of English-speaking countries. Learning a second language has been shown to improve memory and problem-solving abilities. Being able to speak English can boost an individual's confidence in social and professional settings."</p>
+                        <hr class="border-slate-800 my-2">
+                        <p class="text-emerald-400 text-xs">💡 <strong>توضيح الشرح بالعربي:</strong> تعتبر اللغة الإنجليزية هي لغة الأعمال العالمية ولغة الفن والسينما والتلفزيون. تعلمها يعطي الطالب نظرة ثاقبة وفهماً عميقاً لثقافات ومجتمعات الدول الناطقة بها، كما أن تعلم لغة ثانية يطور من قدرات الذاكرة وحل المشكلات، ويمنح الفرد ثقة عالية في التعاملات الاجتماعية والمهنية.</p>
+                    </div>
+
+                    <!-- Questions & Answers -->
+                    <div class="space-y-2 text-xs">
+                        <h5 class="font-bold text-white">✍️ الأسئلة والإجابات المعتمدة من الـ PDF:</h5>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">1. ........... is the global language of business.</p>
+                            <p class="text-slate-400">A. French | B. Spanish | C. German | <span class="text-amber-400 font-bold">D. English</span></p>
+                            <p class="text-[11px] text-emerald-400">✔ الإجابة: (D) English - لأنها لغة التجارة والأعمال العالمية.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">2. English is the ........ language of film, music and television.</p>
+                            <p class="text-slate-400"><span class="text-amber-400 font-bold">A. primary</span> | B. secondary | C. least | D. subordinate</p>
+                            <p class="text-[11px] text-emerald-400">✔ الإجابة: (A) primary - الإنجليزية هي اللغة الأساسية والأولى في الإعلام والفن.</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">3. Learning English can provide .......... into the culture and society of English-speaking countries.</p>
+                            <p class="text-slate-400">A. knowledge | B. information | <span class="text-amber-400 font-bold">C. insight</span> | D. facts</p>
+                            <p class="text-[11px] text-emerald-400">✔ الإجابة: (C) insight - تمنح رؤية عميقة وفهماً للمجتمعات الإنجليزية.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 2 Complete -->
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <h4 class="text-amber-400 font-black text-sm">UNIT TWO: Classroom Language & Communication</h4>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 px-2.5 py-1 rounded font-bold">دكتور فاطمة عبده</span>
+                    </div>
+
+                    <!-- Complete Explanation -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <h5 class="font-bold text-amber-300 text-xs">📖 الشرح النصي الكامل للمنهاج (Original Text & Explanation):</h5>
+                        <p class="text-slate-300 text-xs italic">"Classroom language involves specific phrases used by teachers to introduce themselves, begin or end sessions, confirm contributions, and manage student behavior. Expressions like 'Good morning, everybody', 'What do you think makes sense?', and 'Pack your things away' form the standard discourse of an effective educational setting."</p>
+                        <hr class="border-slate-800 my-2">
+                        <p class="text-emerald-400 text-xs">💡 <strong>توضيح الشرح بالعربي:</strong> لغة الفصل تشتمل على المصطلحات والتعابير التي يستخدمها المعلم داخل قاعة الدراسة، مثل تعابير الترحيب عند بدء المحاضرة، وعبارات الاستجابة لمشاركات الطلاب، وعبارات إنهاء الدرس وجمع الأدوات.</p>
+                    </div>
+
+                    <!-- Questions & Answers -->
+                    <div class="space-y-2 text-xs">
+                        <h5 class="font-bold text-white">✍️ الأسئلة والإجابات المعتمدة من الـ PDF:</h5>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">1. The phrase we use to introduce ourselves is:</p>
+                            <p class="text-amber-400 font-bold">✔ الإجابة: C. Hello. My name is Mr Ali. I'm...</p>
+                        </div>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">2. The expression we use at the beginning of the session is:</p>
+                            <p class="text-amber-400 font-bold">✔ الإجابة: B. Good morning, everybody.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 7 & 8 Vocabulary Strategies Complete -->
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <h4 class="text-amber-400 font-black text-sm">UNITS SEVEN & EIGHT: Effective Vocabulary Learning Strategies</h4>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 px-2.5 py-1 rounded font-bold">دكتور فاطمة عبده</span>
+                    </div>
+
+                    <!-- Complete Text Explanation -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <h5 class="font-bold text-amber-300 text-xs">📖 الشرح النصي الكامل للمنهاج (Full PDF Guide):</h5>
+                        <ul class="list-disc list-inside text-slate-300 text-xs space-y-1">
+                            <li>1. Use flash cards to remember vocabulary over time.</li>
+                            <li>2. Write down useful new vocabulary in a notebook.</li>
+                            <li>3. Learn whole phrases, not just individual words.</li>
+                            <li>4. Practice memory techniques and associate words with real-life situations.</li>
+                            <li>5. Learn synonyms and antonyms. Remember: "Use it or lose it!"</li>
+                        </ul>
+                        <hr class="border-slate-800 my-2">
+                        <p class="text-emerald-400 text-xs">💡 <strong>توضيح الشرح بالعربي:</strong> أفضل الطرق لاكتساب المفردات هي استخدام بطاقات الاستذكار، وتدوين الكلمات في دفتر خاص، وحفظ جمل كاملة بدلاً من كلمات منفردة، بالإضافة إلى ربط الكلمات بالمواقف الحياتية اليومية ومعرفة المرادفات والمضاد.</p>
+                    </div>
+
+                    <!-- Questions & Answers -->
+                    <div class="space-y-2 text-xs">
+                        <h5 class="font-bold text-white">✍️ الأسئلة والإجابات المعتمدة:</h5>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">1. Learn whole ........., not just individual words.</p>
+                            <p class="text-slate-400">A. pages | B. paragraphs | <span class="text-amber-400 font-bold">C. phrases</span> | D. paraphrases</p>
+                            <p class="text-[11px] text-emerald-400">✔ الإجابة: (C) phrases - تعلم العبارات والجمل الكاملة أفضل للذاكرة.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 9 & 10 Grammar Tips Complete -->
+                <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <h4 class="text-amber-400 font-black text-sm">UNITS NINE & TEN: Practical Solutions for Improving English Grammar</h4>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 px-2.5 py-1 rounded font-bold">دكتور فاطمة عبده</span>
+                    </div>
+
+                    <!-- Complete Text Explanation -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <h5 class="font-bold text-amber-300 text-xs">📖 الشرح النصي الكامل للمنهاج (Full PDF Text):</h5>
+                        <p class="text-slate-300 text-xs italic">"Some students learn grammar intuitively, while others struggle with tenses, clauses, and sentences. Key solutions: 1) Make grammar learning a priority. 2) Keep a grammar book on hand for regular revision. 3) Use grammar apps and dictionaries. 4) Practice every day by solving as many exercises as possible."</p>
+                        <hr class="border-slate-800 my-2">
+                        <p class="text-emerald-400 text-xs">💡 <strong>توضيح الشرح بالعربي:</strong> بعض الطلاب يتعلمون القواعد تلقائياً والبعض الآخر يواجه صعوبة في الأزمنة والجمل. والحل التطبيقي يتطلب إعطاء القواعد أولوية، واقتناء كتاب قواعد للمراجعة المستمرة، واستخدام التطبيقات وحل أكبر قدر من التمارين يومياً.</p>
+                    </div>
+
+                    <!-- Questions & Answers -->
+                    <div class="space-y-2 text-xs">
+                        <h5 class="font-bold text-white">✍️ الأسئلة والإجابات المعتمدة:</h5>
+                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                            <p class="font-bold text-white">1. The best way to improve your grammar is to ......... as many exercises as possible.</p>
+                            <p class="text-slate-400">A. write | B. read | C. rephrase | <span class="text-amber-400 font-bold">D. do</span></p>
+                            <p class="text-[11px] text-emerald-400">✔ الإجابة: (D) do - حل أكبر عدد ممكن من التمارين هو المفتاح لإتقان القواعد.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Summaries Grid -->
+            <div id="summariesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div id="emptyState" class="text-center py-12 space-y-2 hidden">
+                <i class="fa-solid fa-folder-open text-3xl text-slate-600"></i>
+                <p class="text-xs text-slate-400 font-bold">لا توجد ملخصات إضافية حالياً.</p>
+            </div>
+        </div>
+<!-- ... existing code -->
